@@ -22,3 +22,18 @@ export const monthes = [
 export const years = getArrayWithNumbers(1940, 2001).map((el) => {
 	return { label: el, value: el };
 });
+
+export const skills = [
+	{ value: 'html', label: 'HTML' },
+	{ value: 'js', label: 'JavaScript' },
+	{ value: 'css', label: 'CSS' },
+	{ value: 'react', label: 'React JS' },
+	{ value: 'angular', label: 'Angular' },
+	{ value: 'vue', label: 'Vue JS' },
+	{ value: 'jquery', label: 'JQuery' },
+	{ value: 'photoshop', label: 'Adobe PhotoShop' },
+	{ value: 'wordpress', label: 'Wordpress' },
+	{ value: 'python', label: 'Python' },
+	{ value: 'ооп', label: 'ООП' },
+	{ value: 'linux', label: 'Linux' },
+];

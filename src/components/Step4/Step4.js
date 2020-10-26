@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		justifyContent: 'center',
+		cursor: 'pointer',
 		'& > *': {
 			margin: theme.spacing(1),
 			width: theme.spacing(16),
