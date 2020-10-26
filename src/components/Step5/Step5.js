@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import Header from '../../Layouts/Header';
@@ -9,7 +9,10 @@ import TextField from '@material-ui/core/TextField';
 import ButtonSubmit from '../../ui/Button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { skills } from '../../data/selectOptions';
+import { skills, skillsLanguage } from '../../data/selectOptions';
+import { getLanguages } from '../../actions';
+import SelectApp from '../../ui/Select';
+import { useData } from '../../context';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -36,8 +39,17 @@ const schema = yup.object().shape({
 
 const Step5 = () => {
 	const classes = useStyles();
+	const { data, addData } = useData();
 	const history = useHistory();
-	const { handleSubmit, errors, control, watch, register } = useForm({
+	const [languages, setLanguages] = useState([]);
+	const [numberSelectsForLanguages, setNumberSelectsForLanguages] = useState([
+		'1',
+	]);
+
+	useEffect(() => {
+		getLanguages().then((res) => setLanguages(res));
+	}, []);
+	const { handleSubmit, errors, control } = useForm({
 		mode: 'onBlur',
 		resolver: yupResolver(schema),
 		// defaultValues: {
@@ -50,7 +62,7 @@ const Step5 = () => {
 	});
 
 	const onSubmit = (data) => {
-		console.log(data);
+		addData(data);
 		history.push('/results');
 	};
 
@@ -96,6 +108,53 @@ const Step5 = () => {
 					/>
 				</div>
 				<h3>Languages</h3>
+				<div>
+					<p>First language</p>
+					<SelectApp
+						name="firstLanguage"
+						options={languages.map(({ id, name }) => ({
+							value: id,
+							label: name,
+						}))}
+						control={control}
+						width={220}
+					/>
+				</div>
+				<div>
+					<div>
+						<p>Foreign languages</p>
+						{numberSelectsForLanguages.map((id) => (
+							<div key={id}>
+								<SelectApp
+									name={id}
+									options={languages.map(({ id, name }) => ({
+										value: id,
+										label: name,
+									}))}
+									control={control}
+									width={220}
+									defaultValue="English"
+								/>
+								<SelectApp
+									name={String(Number(id) + 1)}
+									options={skillsLanguage}
+									control={control}
+									width={220}
+								/>
+							</div>
+						))}
+						<Button
+							href="#text-buttons"
+							color="primary"
+							onClick={() =>
+								setNumberSelectsForLanguages((p) => [...p, String(+p + 1)])
+							}
+						>
+							Add new language
+						</Button>
+					</div>
+				</div>
+
 				<ButtonSubmit type="onSubmit">Next step</ButtonSubmit>
 			</form>
 			<div

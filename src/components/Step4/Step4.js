@@ -15,6 +15,7 @@ import AttachFileOutlinedIcon from '@material-ui/icons/AttachFileOutlined';
 import { InsertDriveFile } from '@material-ui/icons';
 import ButtonSubmit from '../../ui/Button';
 import { useHistory } from 'react-router-dom';
+import { useData } from '../../context';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -30,11 +31,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Step4 = () => {
+	const { data, addData } = useData();
 	const { control, handleSubmit } = useForm();
 	const history = useHistory();
 	const styles = useStyles();
 	const onSubmit = (data) => {
 		history.push('/step5');
+		addData(data);
 	};
 
 	return (

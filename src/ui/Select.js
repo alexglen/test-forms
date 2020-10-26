@@ -8,7 +8,7 @@ const SelectApp = ({
 	control,
 	width,
 	placeholder,
-	onChange,
+	defaultValue,
 }) => {
 	return (
 		<div style={{ marginBottom: 15, width, display: 'inline-block' }}>
@@ -19,6 +19,7 @@ const SelectApp = ({
 				control={control}
 				rules={{ required: true }}
 				placeholder={placeholder}
+				renderValue={(selected) => selected.join(', ')}
 			/>
 		</div>
 	);

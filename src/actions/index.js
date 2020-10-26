@@ -10,3 +10,11 @@ export const getCities = async (id = 1) => {
 	}
 	return res.json();
 };
+
+export const getLanguages = async () => {
+	const res = await fetch(`https://api.hh.ru/languages`);
+	if (!res.ok) {
+		throw new Error('I can not fetch data');
+	}
+	return res.json();
+};
