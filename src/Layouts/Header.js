@@ -21,7 +21,7 @@ const Header = ({ children }) => {
 		<Fragment>
 			<header>
 				<Typography variant="h3" gutterBottom className={styles.root}>
-					Write your data
+					Анкета
 				</Typography>
 			</header>
 			<main style={{ width: '50%', margin: '0 auto' }}>{children}</main>

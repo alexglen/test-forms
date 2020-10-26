@@ -42,7 +42,7 @@ const Step4 = () => {
 
 	return (
 		<Header>
-			<h1>step4</h1>
+			<h1>Шаг 4</h1>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Controller
 					name="files"
@@ -82,9 +82,9 @@ const Step4 = () => {
 									)}
 								</Dropzone>
 								<div style={{ display: 'flex', justifyContent: 'center' }}>
-									<h3>Choose files or click files</h3>
+									<h3>Выберите файлы или перетащите их мышкой</h3>
 								</div>
-								<h2>Your files:</h2>
+								<h2>Выбранные Вами файлы:</h2>
 								<List component="nav" aria-label="main mailbox folders">
 									{value.map((file, index) => {
 										return (
@@ -104,7 +104,7 @@ const Step4 = () => {
 						);
 					}}
 				/>
-				<ButtonSubmit type="submit">Next step</ButtonSubmit>
+				<ButtonSubmit type="submit">Далее</ButtonSubmit>
 			</form>
 			<div
 				style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 25 }}
@@ -114,7 +114,7 @@ const Step4 = () => {
 					color="secondary"
 					onClick={() => history.push('/step3')}
 				>
-					Return back
+					Вернуться назад
 				</Button>
 			</div>
 		</Header>

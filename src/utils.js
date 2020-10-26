@@ -34,3 +34,5 @@ export const declinationOfNumbers = (n) => (titles) =>
 			? 1
 			: 2
 	];
+
+// Её вызов  declinationOfNumbers(dataAd.post.reviews.length)(["отзыв", "отзыва", "отзывов"])

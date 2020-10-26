@@ -59,19 +59,27 @@ const Results = () => {
 
 	return (
 		<Header>
-			<h1>results</h1>
+			<h1>Результаты</h1>
 			<TableContainer component={Paper}>
 				<Table className={classes.table} aria-label="simple table">
 					<TableHead>
 						<TableRow>
-							<TableCell align="left">Тема</TableCell>
-							<TableCell align="right">Информация</TableCell>
+							<TableCell align="left" style={{ fontWeight: 600 }}>
+								Тема
+							</TableCell>
+							<TableCell align="right" style={{ fontWeight: 600 }}>
+								Информация
+							</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{rows.map((row) => (
 							<TableRow key={row.name}>
-								<TableCell component="th" scope="row">
+								<TableCell
+									component="th"
+									scope="row"
+									style={{ fontStyle: 'italic' }}
+								>
 									{row.name}
 								</TableCell>
 								<TableCell align="right">{row.value}</TableCell>
@@ -80,16 +88,24 @@ const Results = () => {
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<ButtonSubmit onClick={sendData}>Отправить данные</ButtonSubmit>
+			<div style={{ marginTop: 25 }}>
+				<ButtonSubmit onClick={sendData}>Отправить данные</ButtonSubmit>
+			</div>
+
 			<div
-				style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 25 }}
+				style={{
+					display: 'flex',
+					justifyContent: 'flex-end',
+					marginTop: 25,
+					marginBottom: 25,
+				}}
 			>
 				<Button
 					variant="contained"
 					color="secondary"
 					onClick={() => history.push('/step5')}
 				>
-					Return back
+					Вернуться назад
 				</Button>
 			</div>
 		</Header>

@@ -43,11 +43,11 @@ const Step2 = () => {
 	};
 	return (
 		<Header>
-			<h2>Step2</h2>
+			<h2>Шаг 2</h2>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<AvatarApp />
 				<Input
-					label="Write your mail"
+					label="Ваш email"
 					ref={register}
 					id="email"
 					name="email"
@@ -71,13 +71,13 @@ const Step2 = () => {
 								color="primary"
 							/>
 						}
-						label="Do you want to write your phone number?"
+						label="Вы можете оставить свой номер телефона для связи"
 					/>
 				</div>
 
 				{checked.checkboxTel && (
 					<Input
-						label="Write your phone number"
+						label="Ваш телефонный номер"
 						ref={register}
 						id="tel"
 						name="tel"
@@ -103,11 +103,11 @@ const Step2 = () => {
 								color="primary"
 							/>
 						}
-						label="Do you want to write your github account?"
+						label="Вы можете отправить нам ссылку на свой аккаунт в GitHub"
 					/>
 					{checked.checkboxGit && (
 						<Input
-							label="Write your github account"
+							label="Ссылка на Ваш аккаунт в GitHub"
 							ref={register}
 							id="github"
 							name="github"
@@ -115,7 +115,7 @@ const Step2 = () => {
 						/>
 					)}
 				</div>
-				<ButtonSubmit type="submit">Next step</ButtonSubmit>
+				<ButtonSubmit type="submit">Далее</ButtonSubmit>
 			</form>
 			<div
 				style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 25 }}
@@ -125,7 +125,7 @@ const Step2 = () => {
 					color="secondary"
 					onClick={() => history.push('/')}
 				>
-					Return back
+					Вернуться назад
 				</Button>
 			</div>
 		</Header>

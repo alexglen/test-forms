@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -39,10 +39,10 @@ const Step1 = () => {
 
 	return (
 		<Header>
-			<h2>Step1</h2>
+			<h2>Шаг 1</h2>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Input
-					label="Write your first name"
+					label="Ваше имя"
 					ref={register}
 					id="firstName"
 					name="firstName"
@@ -51,7 +51,7 @@ const Step1 = () => {
 					helperText={errors?.firstName?.message}
 				/>
 				<Input
-					label="Write your last name"
+					label="Ваша фамилия"
 					ref={register}
 					id="lastName"
 					name="lastName"
@@ -59,7 +59,7 @@ const Step1 = () => {
 					error={!!errors.lastName}
 					helperText={errors?.lastName?.message}
 				/>
-				<ButtonSubmit type="submit">Next step</ButtonSubmit>
+				<ButtonSubmit type="submit">Далее</ButtonSubmit>
 			</form>
 		</Header>
 	);

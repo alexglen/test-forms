@@ -46,9 +46,11 @@ const Step5 = () => {
 		'1',
 	]);
 
+	console.log(languages);
 	useEffect(() => {
 		getLanguages().then((res) => setLanguages(res));
 	}, []);
+
 	const { handleSubmit, errors, control } = useForm({
 		mode: 'onBlur',
 		resolver: yupResolver(schema),
@@ -68,9 +70,9 @@ const Step5 = () => {
 
 	return (
 		<Header>
-			<h1>step5</h1>
+			<h1>Шаг 5</h1>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<h3>Your skills</h3>
+				<h3>Ваши навыки</h3>
 				<div className={classes.root}>
 					<Controller
 						render={({ onChange, ...props }) => (
@@ -81,7 +83,7 @@ const Step5 = () => {
 								onChange={(e, data) => onChange(data)}
 								{...props}
 								renderInput={(params) => (
-									<TextField {...params} label="My label" margin="normal" />
+									<TextField {...params} label="Ваши навыки" margin="normal" />
 								)}
 							/>
 						)}
@@ -97,75 +99,86 @@ const Step5 = () => {
 						as={
 							<TextField
 								id="outlined-multiline-static"
-								label="Some words about you"
+								label=""
 								multiline
 								rows={4}
-								placeholder="Write about yourself"
+								placeholder="Напишите несколько слов о себе и своих прошлых проектах"
 								variant="outlined"
 								className={classes.textarea}
 							/>
 						}
 					/>
 				</div>
-				<h3>Languages</h3>
+				<h2>Знание языков</h2>
 				<div>
-					<p>First language</p>
-					<SelectApp
-						name="firstLanguage"
-						options={languages.map(({ id, name }) => ({
-							value: id,
-							label: name,
-						}))}
-						control={control}
-						width={220}
-					/>
+					<h3>Родной язык</h3>
+					<div>
+						<SelectApp
+							name="firstLanguage"
+							options={languages.map(({ id, name }) => ({
+								value: id,
+								label: name,
+							}))}
+							control={control}
+							width={220}
+						/>
+					</div>
 				</div>
 				<div>
 					<div>
-						<p>Foreign languages</p>
+						<h3>Иностранные языки</h3>
 						{numberSelectsForLanguages.map((id) => (
-							<div key={id}>
-								<SelectApp
-									name={id}
-									options={languages.map(({ id, name }) => ({
-										value: id,
-										label: name,
-									}))}
-									control={control}
-									width={220}
-									defaultValue="English"
-								/>
-								<SelectApp
-									name={String(Number(id) + 1)}
-									options={skillsLanguage}
-									control={control}
-									width={220}
-								/>
+							<div key={id} style={{ display: 'flex' }}>
+								<div>
+									<SelectApp
+										name={id}
+										options={languages.map(({ id, name }) => ({
+											value: id,
+											label: name,
+										}))}
+										control={control}
+										width={220}
+										defaultValue="English"
+									/>
+								</div>
+								<div style={{ marginLeft: 25 }}>
+									<SelectApp
+										name={String(Number(id) + 1)}
+										options={skillsLanguage}
+										control={control}
+										width={220}
+									/>
+								</div>
 							</div>
 						))}
-						<Button
-							href="#text-buttons"
-							color="primary"
-							onClick={() =>
-								setNumberSelectsForLanguages((p) => [...p, String(+p + 1)])
-							}
-						>
-							Add new language
-						</Button>
 					</div>
+					<Button
+						href="#text-buttons"
+						color="primary"
+						onClick={() =>
+							setNumberSelectsForLanguages((p) => [...p, String(+p + 1)])
+						}
+					>
+						Указать ещё один язык
+					</Button>
 				</div>
 
-				<ButtonSubmit type="onSubmit">Next step</ButtonSubmit>
+				<ButtonSubmit type="onSubmit">Далее</ButtonSubmit>
 			</form>
 			<div
-				style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 25 }}
+				style={{
+					display: 'flex',
+					justifyContent: 'flex-end',
+					marginTop: 25,
+					marginBottom: 25,
+				}}
 			>
 				<Button
 					variant="contained"
 					color="secondary"
 					onClick={() => history.push('/step4')}
 				>
-					Return back
+					Вернуться назад
 				</Button>
 			</div>
 		</Header>

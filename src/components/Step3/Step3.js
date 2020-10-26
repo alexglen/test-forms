@@ -57,11 +57,11 @@ const Step3 = () => {
 
 	return (
 		<Header>
-			<h2>step3</h2>
-			<h3>Your date of birth </h3>
+			<h2>Шаг 3</h2>
+			<h3>Дата рождения</h3>
 			<p>
-				We do not share data about your date of birth. Operations on the
-				platform are performed by persons who have reached the age of 18
+				Мы не передаем данные о вашей дате рождения третьим лицам. Операции на
+				платформе выполняются лицами, достигшими 18-летнего возраста.
 			</p>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -70,24 +70,25 @@ const Step3 = () => {
 						options={days}
 						control={control}
 						width={220}
+						placeholder="День рождения"
 					/>
 					<SelectApp
 						name="monthSelect"
 						options={monthes}
 						control={control}
 						width={220}
+						placeholder="Месяц рождения"
 					/>
 					<SelectApp
 						name="yearSelect"
 						options={years}
 						control={control}
 						width={220}
+						placeholder="Год рождения"
 					/>
 				</div>
 
-				<h3>Your sex</h3>
-
-				<h3>What do you think?</h3>
+				<h3>Где Вы проживаете?</h3>
 				<div>
 					<div>
 						<SelectApp
@@ -95,7 +96,7 @@ const Step3 = () => {
 							options={regions?.length && getRegionsForSelect(regions)}
 							control={control}
 							width={'100%'}
-							placeholder={'Your region'}
+							placeholder={'Регион проживания'}
 						/>
 					</div>
 					<div>
@@ -103,13 +104,13 @@ const Step3 = () => {
 							name="city"
 							control={control}
 							width={'100%'}
-							placeholder={'Your city'}
+							placeholder={'Населённый пункт'}
 							options={cities?.length && getRegionsForSelect(cities)}
 						/>
 					</div>
 				</div>
 
-				<ButtonSubmit type="submit">Next step</ButtonSubmit>
+				<ButtonSubmit type="submit">Далее</ButtonSubmit>
 			</form>
 			{Object.keys(errors).length ? (
 				<p style={{ color: 'tomato' }}>Choose all the selects</p>
@@ -122,7 +123,7 @@ const Step3 = () => {
 					color="secondary"
 					onClick={() => history.push('/step2')}
 				>
-					Return back
+					Вернуться назад
 				</Button>
 			</div>
 		</Header>

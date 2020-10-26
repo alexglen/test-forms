@@ -19,7 +19,6 @@ const SelectApp = ({
 				control={control}
 				rules={{ required: true }}
 				placeholder={placeholder}
-				renderValue={(selected) => selected.join(', ')}
 			/>
 		</div>
 	);
