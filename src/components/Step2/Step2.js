@@ -37,7 +37,6 @@ const Step2 = () => {
 	});
 
 	const onSubmit = (data) => {
-		console.log('data', data);
 		history.push('./step3');
 		addData({ tel: '', github: '', ...data });
 	};

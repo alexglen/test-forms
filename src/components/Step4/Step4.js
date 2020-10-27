@@ -32,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Step4 = () => {
 	const { data, addData } = useData();
-	const { control, handleSubmit } = useForm();
+	const { control, handleSubmit } = useForm({
+		defaultValues: {
+			files: data.files,
+		},
+	});
 	const history = useHistory();
 	const styles = useStyles();
 	const onSubmit = (data) => {
@@ -50,7 +54,6 @@ const Step4 = () => {
 					control={control}
 					rules={{ required: true }}
 					render={({ onChange, onBlur, value }) => {
-						console.log(value);
 						return (
 							<>
 								<Dropzone onDrop={onChange}>

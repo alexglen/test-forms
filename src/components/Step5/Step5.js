@@ -37,27 +37,26 @@ const schema = yup.object().shape({
 	skills: yup.array().required(''),
 	firstLanguage: yup.object().required(''),
 	info: yup.string().required('Напишите несколько слов о себе и своём опыте'),
-	// monthSelect: yup.object().required(''),
-	// yearSelect: yup.object().required(''),
-	// region: yup.object().required(''),
-	// city: yup.object().required(''),
+	1: yup.object(),
+	10: yup.object(),
+	2: yup.object(),
+	20: yup.object(),
+	3: yup.object(),
+	30: yup.object(),
 });
 
 const Step5 = () => {
 	const classes = useStyles();
-	const { addData } = useData();
+	const { data, addData } = useData();
 	const history = useHistory();
 	const [languages, setLanguages] = useState([]);
 	const [limit, setLimit] = useState({ first: 0, last: 1 });
+	// eslint-disable-next-line no-unused-vars
 	const [numberSelectsForLanguages, setNumberSelectsForLanguages] = useState([
 		{ value: '1', id: '10' },
 		{ value: '2', id: '20' },
 		{ value: '3', id: '30' },
 	]);
-
-	useEffect(() => {
-		console.log('TARGET', numberSelectsForLanguages);
-	}, [numberSelectsForLanguages]);
 
 	useEffect(() => {
 		getLanguages().then((res) => setLanguages(res));
@@ -66,13 +65,17 @@ const Step5 = () => {
 	const { handleSubmit, errors, control } = useForm({
 		mode: 'onBlur',
 		resolver: yupResolver(schema),
-		// defaultValues: {
-		// 	daySelect: data.daySelect,
-		// 	monthSelect: data.monthSelect,
-		// 	yearSelect: data.yearSelect,
-		// 	region: data.region,
-		// 	city: data.city,
-		// },
+		defaultValues: {
+			skills: data.skills,
+			info: data.info,
+			firstLanguage: data.firstLanguage,
+			1: data['1'],
+			10: data['10'],
+			2: data['2'],
+			20: data['20'],
+			3: data['3'],
+			30: data['30'],
+		},
 	});
 
 	const onSubmit = (data) => {
