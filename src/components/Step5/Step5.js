@@ -13,6 +13,7 @@ import { skills, skillsLanguage } from '../../data/selectOptions';
 import { getLanguages } from '../../actions';
 import SelectApp from '../../ui/Select';
 import { useData } from '../../context';
+import { changeOrderOfObjectsInArray } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -31,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 
 const schema = yup.object().shape({
 	skills: yup.array().required(''),
+	firstLanguage: yup.object().required(''),
+	info: yup.string().required('Напишите несколько слов о себе и своём опыте'),
 	// monthSelect: yup.object().required(''),
 	// yearSelect: yup.object().required(''),
 	// region: yup.object().required(''),
@@ -46,7 +49,10 @@ const Step5 = () => {
 		'1',
 	]);
 
-	console.log(languages);
+	useEffect(() => {
+		console.log('TARGET', numberSelectsForLanguages);
+	}, [numberSelectsForLanguages]);
+
 	useEffect(() => {
 		getLanguages().then((res) => setLanguages(res));
 	}, []);
@@ -105,6 +111,8 @@ const Step5 = () => {
 								placeholder="Напишите несколько слов о себе и своих прошлых проектах"
 								variant="outlined"
 								className={classes.textarea}
+								error={!!errors.info}
+								helperText={errors?.info?.message}
 							/>
 						}
 					/>
@@ -115,12 +123,16 @@ const Step5 = () => {
 					<div>
 						<SelectApp
 							name="firstLanguage"
-							options={languages.map(({ id, name }) => ({
-								value: id,
-								label: name,
-							}))}
+							options={
+								languages?.length &&
+								changeOrderOfObjectsInArray(languages).map(({ id, name }) => ({
+									value: id,
+									label: name,
+								}))
+							}
 							control={control}
 							width={220}
+							placeholder="Ваш родной язык"
 						/>
 					</div>
 				</div>
@@ -132,10 +144,15 @@ const Step5 = () => {
 								<div>
 									<SelectApp
 										name={id}
-										options={languages.map(({ id, name }) => ({
-											value: id,
-											label: name,
-										}))}
+										options={
+											languages?.length &&
+											changeOrderOfObjectsInArray(languages).map(
+												({ id, name }) => ({
+													value: id,
+													label: name,
+												})
+											)
+										}
 										control={control}
 										width={220}
 										defaultValue="English"
@@ -143,7 +160,7 @@ const Step5 = () => {
 								</div>
 								<div style={{ marginLeft: 25 }}>
 									<SelectApp
-										name={String(Number(id) + 1)}
+										name={String(-+id)}
 										options={skillsLanguage}
 										control={control}
 										width={220}
@@ -156,7 +173,10 @@ const Step5 = () => {
 						href="#text-buttons"
 						color="primary"
 						onClick={() =>
-							setNumberSelectsForLanguages((p) => [...p, String(+p + 1)])
+							setNumberSelectsForLanguages((p) => [
+								...p,
+								String(+p[p.length - 1] + 1),
+							])
 						}
 					>
 						Указать ещё один язык

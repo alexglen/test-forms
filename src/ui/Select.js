@@ -19,6 +19,7 @@ const SelectApp = ({
 				control={control}
 				rules={{ required: true }}
 				placeholder={placeholder}
+				defaultValue={defaultValue}
 			/>
 		</div>
 	);

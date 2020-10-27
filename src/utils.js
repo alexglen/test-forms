@@ -23,16 +23,19 @@ export const getRegionsForSelect = (arr) =>
 export const convertArrayWithSkillsToStrings = (arr) =>
 	arr.map((arr) => arr.label).join(', ');
 
-// Функция для склонения слов
-export const declinationOfNumbers = (n) => (titles) =>
-	n +
-	' ' +
-	titles[
-		n % 10 === 1 && n % 100 !== 11
-			? 0
-			: n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)
-			? 1
-			: 2
+export const changeOrderOfObjectsInArray = (arr) => {
+	const objRussian = arr.find((el) => el.id === 'rus');
+	const objEnglish = arr.find((el) => el.id === 'eng');
+	const objGerman = arr.find((el) => el.id === 'deu');
+	const objSpanish = arr.find((el) => el.id === 'spa');
+	return [
+		objRussian,
+		objEnglish,
+		objGerman,
+		objSpanish,
+		...arr.filter(
+			(el) =>
+				el.id !== 'rus' || el.id !== 'eng' || el.id !== 'deu' || el.id !== 'spa'
+		),
 	];
-
-// Её вызов  declinationOfNumbers(dataAd.post.reviews.length)(["отзыв", "отзыва", "отзывов"])
+};
