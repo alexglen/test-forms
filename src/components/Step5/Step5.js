@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { Button } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -14,6 +15,8 @@ import { getLanguages } from '../../actions';
 import SelectApp from '../../ui/Select';
 import { useData } from '../../context';
 import { changeOrderOfObjectsInArray } from '../../utils';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -42,11 +45,14 @@ const schema = yup.object().shape({
 
 const Step5 = () => {
 	const classes = useStyles();
-	const { data, addData } = useData();
+	const { addData } = useData();
 	const history = useHistory();
 	const [languages, setLanguages] = useState([]);
+	const [limit, setLimit] = useState({ first: 0, last: 1 });
 	const [numberSelectsForLanguages, setNumberSelectsForLanguages] = useState([
-		'1',
+		{ value: '1', id: '10' },
+		{ value: '2', id: '20' },
+		{ value: '3', id: '30' },
 	]);
 
 	useEffect(() => {
@@ -139,48 +145,67 @@ const Step5 = () => {
 				<div>
 					<div>
 						<h3>Иностранные языки</h3>
-						{numberSelectsForLanguages.map((id) => (
-							<div key={id} style={{ display: 'flex' }}>
-								<div>
-									<SelectApp
-										name={id}
-										options={
-											languages?.length &&
-											changeOrderOfObjectsInArray(languages).map(
-												({ id, name }) => ({
-													value: id,
-													label: name,
-												})
-											)
-										}
-										control={control}
-										width={220}
-										defaultValue="English"
-									/>
+						{numberSelectsForLanguages
+							.slice(limit.first, limit.last)
+							.map(({ value, id }) => (
+								<div
+									key={value}
+									style={{ display: 'flex', alignItems: 'center' }}
+								>
+									<div>
+										<SelectApp
+											name={value}
+											options={
+												languages?.length &&
+												changeOrderOfObjectsInArray(languages).map(
+													({ id, name }) => ({
+														value: id,
+														label: name,
+													})
+												)
+											}
+											control={control}
+											width={220}
+											defaultValue="English"
+										/>
+									</div>
+									<div style={{ marginLeft: 25 }}>
+										<SelectApp
+											name={id}
+											options={skillsLanguage}
+											control={control}
+											width={220}
+										/>
+									</div>
+
+									{value == limit.last && (
+										<IconButton
+											aria-label="delete"
+											style={{ marginBottom: '1rem' }}
+											onClick={() =>
+												setLimit((limit) => ({
+													...limit,
+													last: limit.last - 1,
+												}))
+											}
+										>
+											<DeleteIcon />
+										</IconButton>
+									)}
 								</div>
-								<div style={{ marginLeft: 25 }}>
-									<SelectApp
-										name={String(-+id)}
-										options={skillsLanguage}
-										control={control}
-										width={220}
-									/>
-								</div>
-							</div>
-						))}
+							))}
 					</div>
-					<Button
-						href="#text-buttons"
-						color="primary"
-						onClick={() =>
-							setNumberSelectsForLanguages((p) => [
-								...p,
-								String(+p[p.length - 1] + 1),
-							])
-						}
-					>
-						Указать ещё один язык
-					</Button>
+					{limit.last < 3 && (
+						<Button
+							href="#text-buttons"
+							color="primary"
+							onClick={() =>
+								setLimit((limit) => ({ ...limit, last: limit.last + 1 }))
+							}
+						>
+							Указать ещё один язык
+						</Button>
+					)}
 				</div>
 
 				<ButtonSubmit type="onSubmit">Далее</ButtonSubmit>

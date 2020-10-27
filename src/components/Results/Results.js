@@ -34,6 +34,19 @@ const Results = () => {
 	const classes = useStyles();
 	const { data } = useData();
 
+	const first =
+		data?.['1'] && data?.['10']
+			? `${data['1'].label}(${data['10'].label})`
+			: '';
+	const second =
+		data?.['2'] && data?.['20']
+			? `${data['2'].label}(${data['20'].label})`
+			: '';
+	const third =
+		data?.['3'] && data?.['30']
+			? `${data['2'].label}(${data['20'].label})`
+			: '';
+
 	const rows = [
 		createData('Имя и фамилия', `${data.firstName} ${data.lastName}`),
 		createData('Email', data.email),
@@ -50,7 +63,12 @@ const Results = () => {
 		createData('Навыки', convertArrayWithSkillsToStrings(data.skills)),
 		createData('Несколько слов о себе', data.info),
 		createData('Родной язык', data.firstLanguage.label),
-		createData('Иностранные языки', '1'),
+		createData(
+			'Иностранные языки',
+			`${first}, 
+		${second},
+		 ${third}`
+		),
 	];
 
 	const sendData = () => {

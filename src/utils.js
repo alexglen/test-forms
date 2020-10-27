@@ -39,3 +39,7 @@ export const changeOrderOfObjectsInArray = (arr) => {
 		),
 	];
 };
+
+// const restParametrs = arr => {
+
+// }
