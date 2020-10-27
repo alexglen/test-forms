@@ -1,4 +1,3 @@
-import { Button } from '@material-ui/core';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../../Layouts/Header';
@@ -14,6 +13,7 @@ import { useData } from '../../context';
 import { convertArrayWithSkillsToStrings } from '../../utils';
 import { monthDeclination } from '../../data/selectOptions';
 import ButtonSubmit from '../../ui/Button';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
 	table: {
