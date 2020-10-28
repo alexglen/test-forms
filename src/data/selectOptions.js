@@ -1,8 +1,10 @@
-import { getArrayWithNumbers } from '../utils';
-
-export const days = getArrayWithNumbers(1, 31).map((el) => {
-	return { label: el, value: el };
-});
+const getArrayWithNumbers = (first, last) => {
+	let arr = [];
+	for (let i = first; i <= last; i++) {
+		arr.push(i);
+	}
+	return arr;
+};
 
 export const monthes = [
 	{ value: 1, label: 'Январь' },
@@ -18,10 +20,6 @@ export const monthes = [
 	{ value: 11, label: 'Ноябрь' },
 	{ value: 12, label: 'Декабрь' },
 ];
-
-export const years = getArrayWithNumbers(1940, 2001).map((el) => {
-	return { label: el, value: el };
-});
 
 export const skills = [
 	{ value: 'html', label: 'HTML' },
@@ -61,3 +59,11 @@ export const monthDeclination = {
 	Ноябрь: 'Ноября',
 	Декабрь: 'Декабря',
 };
+
+export const days = getArrayWithNumbers(1, 31).map((el) => {
+	return { label: el, value: el };
+});
+
+export const years = getArrayWithNumbers(1940, 2001).map((el) => {
+	return { label: el, value: el };
+});

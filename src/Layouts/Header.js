@@ -24,7 +24,9 @@ const Header = ({ children }) => {
 					Анкета
 				</Typography>
 			</header>
-			<main style={{ width: '50%', margin: '0 auto' }}>{children}</main>
+			<main style={{ width: '50%', minWidth: 700, margin: '0 auto' }}>
+				{children}
+			</main>
 		</Fragment>
 	);
 };

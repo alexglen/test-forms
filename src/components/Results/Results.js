@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import Header from '../../Layouts/Header';
-import { makeStyles } from '@material-ui/core/styles';
+import { useData } from '../../context';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { useData } from '../../context';
-import { convertArrayWithSkillsToStrings, createData } from '../../utils';
-import { monthDeclination } from '../../data/selectOptions';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import ButtonSubmit from '../../ui/Button';
-import {
-	Button,
-	ListItem,
-	ListItemIcon,
-	ListItemText,
-	Modal,
-} from '@material-ui/core';
-import { getModalStyle } from '../../utils';
+import Header from '../../Layouts/Header';
+import { ListItem, ListItemIcon, ListItemText, Modal } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import { convertArrayWithSkillsToStrings, createData } from '../../utils';
+import { monthDeclination } from '../../data/selectOptions';
+import { getModalStyle, getRespond, getForeignLanguages } from '../../utils';
 import { InsertDriveFile } from '@material-ui/icons';
+import ComeBackButton from '../../ui/ComeBackButton';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -33,30 +27,17 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(2, 4, 3),
 	},
 	table: {
-		width: '80%',
+		width: '90%',
 		margin: '0 auto',
 	},
 }));
 
 const Results = () => {
-	const history = useHistory();
 	const classes = useStyles();
 	const { data } = useData();
-	const [openAlert, setOpenAlert] = useState(false);
-	const [modalStyle] = useState(getModalStyle);
 
-	const first =
-		data?.['1'] && data?.['10']
-			? `${data['1'].label}(${data['10'].label})`
-			: '';
-	const second =
-		data?.['2'] && data?.['20']
-			? `${data['2'].label}(${data['20'].label})`
-			: '';
-	const third =
-		data?.['3'] && data?.['30']
-			? `${data['2'].label}(${data['20'].label})`
-			: '';
+	const [openModal, setOpenModal] = useState(false);
+	const [modalStyle] = useState(getModalStyle);
 
 	const rows = [
 		createData('Имя и фамилия', `${data.firstName} ${data.lastName}`),
@@ -74,12 +55,7 @@ const Results = () => {
 		createData('Навыки', convertArrayWithSkillsToStrings(data.skills)),
 		createData('Несколько слов о себе', data.info),
 		createData('Родной язык', data.firstLanguage.label),
-		createData(
-			'Иностранные языки',
-			`${first}
-		${second}
-		 ${third}`
-		),
+		createData('Иностранные языки', `${getForeignLanguages(data)}}`),
 	];
 
 	return (
@@ -103,7 +79,7 @@ const Results = () => {
 								<TableCell
 									component="th"
 									scope="row"
-									style={{ fontStyle: 'italic' }}
+									style={{ fontStyle: 'italic', fontSize: '1.125rem' }}
 								>
 									{row.name}
 								</TableCell>
@@ -115,6 +91,7 @@ const Results = () => {
 			</TableContainer>
 
 			<div style={{ marginTop: 25 }}>
+				{data.files.length ? <h3>Список прикреплённых файлов</h3> : null}
 				{data.files &&
 					data.files.map((file) => (
 						<ListItem key={file.name}>
@@ -127,55 +104,26 @@ const Results = () => {
 			</div>
 
 			<div style={{ marginTop: 25 }}>
-				<ButtonSubmit onClick={() => setOpenAlert(true)}>
+				<ButtonSubmit onClick={() => setOpenModal(true)}>
 					Отправить данные
 				</ButtonSubmit>
 			</div>
 
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'flex-end',
-					marginTop: 25,
-					marginBottom: 25,
-				}}
-			>
-				<Button
-					variant="contained"
-					color="secondary"
-					onClick={() => history.push('/step5')}
-				>
-					Вернуться назад
-				</Button>
-			</div>
+			<ComeBackButton path="/step5" />
 
 			<Modal
-				open={openAlert}
-				onClose={() => setOpenAlert(false)}
+				open={openModal}
+				onClose={() => setOpenModal(false)}
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description"
 			>
 				<Alert severity="success" className={classes.paper} style={modalStyle}>
-					<AlertTitle>Success</AlertTitle>
-					This is a success alert — <strong>check it out!</strong>
+					<AlertTitle>Ваши данные отправлены</AlertTitle>
+					{getRespond(data)}
 				</Alert>
 			</Modal>
 		</Header>
 	);
 };
-
-// `Имя и фамилия:  ${data.firstName} ${data.lastName}`
-
-// 'Email: ' `${data.email}`
-// 'Номер телефона: ' `${data.tel}` || 'не указано'
-// 'Аккаунт GitHub: ' `${data.github}` || 'не указано',
-// 'Дата рождения: ' `${data.daySelect.label} ${monthDeclination[data.monthSelect.label]} ${
-// 				data.yearSelect.label} `
-// 'Регион проживания:' `${data.region.label}`
-// 'Населённый пункт: ', `${data.city.label}`
-// 'Навыки: ', `${convertArrayWithSkillsToStrings(data.skills)}`
-// 'Несколько слов о себе:', `${data.info}`
-// 'Родной язык: ', `${data.firstLanguage.label}`
-// 'Иностранные языки: '`${first} ${second} ${third}`
 
 export default Results;

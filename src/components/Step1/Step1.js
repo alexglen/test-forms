@@ -1,22 +1,22 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useData } from '../../context';
 import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import ButtonSubmit from '../../ui/Button';
 import Header from '../../Layouts/Header';
 import Input from '../../ui/Input';
-import ButtonSubmit from '../../ui/Button';
-import { useData } from '../../context';
 
 const schema = yup.object().shape({
 	firstName: yup
 		.string()
-		.matches(/^([^0-9]*)$/, 'Write your correct first name')
-		.required('Write your first name'),
+		.matches(/^([^0-9]*)$/, 'Ваше имя содержит некорректные символы')
+		.required('Напишите Ваше имя'),
 	lastName: yup
 		.string()
-		.matches(/^([^0-9]*)$/, 'Write your correct last name')
-		.required('Write your last name'),
+		.matches(/^([^0-9]*)$/, 'Ваша фамилия содержит некорректные символы')
+		.required('Напишите Вашу фамилию'),
 });
 
 const Step1 = () => {

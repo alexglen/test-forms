@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
 export const DataContext = createContext();
 
@@ -8,9 +8,6 @@ export const DataContainer = ({ children }) => {
 		setData((p) => ({ ...p, ...value }));
 	};
 
-	useEffect(() => {
-		console.log('DATA', data);
-	}, [data]);
 	return (
 		<DataContext.Provider value={{ data, addData }}>
 			{children}

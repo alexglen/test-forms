@@ -1,22 +1,23 @@
 /* eslint-disable eqeqeq */
-import { Button } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import Header from '../../Layouts/Header';
-import { Autocomplete } from '@material-ui/lab';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import ButtonSubmit from '../../ui/Button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { skills, skillsLanguage } from '../../data/selectOptions';
-import { getLanguages } from '../../actions';
-import SelectApp from '../../ui/Select';
 import { useData } from '../../context';
-import { changeOrderOfObjectsInArray } from '../../utils';
-import IconButton from '@material-ui/core/IconButton';
+import { getLanguages } from '../../actions';
+import { Autocomplete } from '@material-ui/lab';
+import { Button } from '@material-ui/core';
+import ButtonSubmit from '../../ui/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Header from '../../Layouts/Header';
+import IconButton from '@material-ui/core/IconButton';
+import SelectApp from '../../ui/Select';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import { skills, skillsLanguage } from '../../data/selectOptions';
+import { changeOrderOfObjectsInArray } from '../../utils';
+import ComeBackButton from '../../ui/ComeBackButton';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -48,9 +49,11 @@ const schema = yup.object().shape({
 const Step5 = () => {
 	const classes = useStyles();
 	const { data, addData } = useData();
+
 	const history = useHistory();
 	const [languages, setLanguages] = useState([]);
 	const [limit, setLimit] = useState({ first: 0, last: 1 });
+
 	// eslint-disable-next-line no-unused-vars
 	const [numberSelectsForLanguages, setNumberSelectsForLanguages] = useState([
 		{ value: '1', id: '10' },
@@ -213,22 +216,7 @@ const Step5 = () => {
 
 				<ButtonSubmit type="onSubmit">Далее</ButtonSubmit>
 			</form>
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'flex-end',
-					marginTop: 25,
-					marginBottom: 25,
-				}}
-			>
-				<Button
-					variant="contained"
-					color="secondary"
-					onClick={() => history.push('/step4')}
-				>
-					Вернуться назад
-				</Button>
-			</div>
+			<ComeBackButton path="/step4" />
 		</Header>
 	);
 };

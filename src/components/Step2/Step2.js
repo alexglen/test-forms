@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import AvatarApp from '../../ui/Avatar';
+import ButtonSubmit from '../../ui/Button';
+import { Checkbox } from '@material-ui/core';
+import ComeBackButton from '../../ui/ComeBackButton';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Header from '../../Layouts/Header';
 import Input from '../../ui/Input';
-import ButtonSubmit from '../../ui/Button';
-import { useForm } from 'react-hook-form';
-import { Button, Checkbox } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { normalizePhoneNumber } from '../../utils';
-import AvatarApp from '../../ui/Avatar';
 import { useData } from '../../context';
+import { normalizePhoneNumber } from '../../utils';
 
 const schema = yup.object().shape({
 	email: yup
 		.string()
-		.email('Write your correct email')
-		.required('Write your email'),
+		.email('Напишите Ваш корректный email')
+		.required('Напишите Ваш email'),
 });
 
 const Step2 = () => {
 	const history = useHistory();
+
 	const { data, addData } = useData();
+
 	const [checked, setChecked] = useState({
 		checkboxTel: !!data.tel,
 		checkboxGit: !!data.github,
 	});
+
 	const { register, handleSubmit, errors } = useForm({
 		mode: 'onBlur',
 		resolver: yupResolver(schema),
@@ -116,17 +120,7 @@ const Step2 = () => {
 				</div>
 				<ButtonSubmit type="submit">Далее</ButtonSubmit>
 			</form>
-			<div
-				style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 25 }}
-			>
-				<Button
-					variant="contained"
-					color="secondary"
-					onClick={() => history.push('/')}
-				>
-					Вернуться назад
-				</Button>
-			</div>
+			<ComeBackButton path="/" />
 		</Header>
 	);
 };

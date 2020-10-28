@@ -1,17 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { days, monthes, years } from '../../data/selectOptions';
-import Header from '../../Layouts/Header';
-import ButtonSubmit from '../../ui/Button';
-import SelectApp from '../../ui/Select';
+import { useHistory } from 'react-router-dom';
+import { useData } from '../../context';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useHistory } from 'react-router-dom';
 import { getCities, getRegions } from '../../actions';
+import ButtonSubmit from '../../ui/Button';
+import ComeBackButton from '../../ui/ComeBackButton';
+import Header from '../../Layouts/Header';
+import SelectApp from '../../ui/Select';
+import { days, monthes, years } from '../../data/selectOptions';
 import { getRegionsForSelect } from '../../utils';
-import { Button } from '@material-ui/core';
-import { useData } from '../../context';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+		display: 'flex',
+		justifyContent: 'space-between',
+	},
+}));
 
 const schema = yup.object().shape({
 	daySelect: yup.object().required(''),
@@ -24,6 +32,7 @@ const schema = yup.object().shape({
 const Step3 = () => {
 	const history = useHistory();
 	const { data, addData } = useData();
+
 	const [regions, setRegions] = useState([]);
 	const [cities, setCities] = useState([]);
 
@@ -55,6 +64,8 @@ const Step3 = () => {
 		addData(data);
 	};
 
+	const classes = useStyles();
+
 	return (
 		<Header>
 			<h2>Шаг 3</h2>
@@ -64,7 +75,7 @@ const Step3 = () => {
 				платформе выполняются лицами, достигшими 18-летнего возраста.
 			</p>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<div className={classes.root}>
 					<SelectApp
 						name="daySelect"
 						options={days}
@@ -113,19 +124,9 @@ const Step3 = () => {
 				<ButtonSubmit type="submit">Далее</ButtonSubmit>
 			</form>
 			{Object.keys(errors).length ? (
-				<p style={{ color: 'tomato' }}>Choose all the selects</p>
+				<p style={{ color: 'red' }}>Вы ответили не на все вопросы</p>
 			) : null}
-			<div
-				style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 25 }}
-			>
-				<Button
-					variant="contained"
-					color="secondary"
-					onClick={() => history.push('/step2')}
-				>
-					Вернуться назад
-				</Button>
-			</div>
+			<ComeBackButton path="/step2" />
 		</Header>
 	);
 };

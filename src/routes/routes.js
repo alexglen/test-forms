@@ -1,12 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
-import Results from '../components/Results/Results';
 import Step1 from '../components/Step1/Step1';
 import Step2 from '../components/Step2/Step2';
 import Step3 from '../components/Step3/Step3';
 import Step4 from '../components/Step4/Step4';
 import Step5 from '../components/Step5/Step5';
+import Results from '../components/Results/Results';
 
 const Routes = () => {
 	return (
